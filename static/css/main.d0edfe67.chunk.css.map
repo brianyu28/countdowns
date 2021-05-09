@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/components/Countdown.css"],"names":[],"mappings":"AAAA,WACI,qBAAuB,CACvB,WACJ","file":"main.d0edfe67.chunk.css","sourcesContent":[".countdown {\n    border: 1px solid black;\n    padding: 5px;\n}"]}
