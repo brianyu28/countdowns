@@ -12,9 +12,11 @@ type CountdownsState = {
   countdowns: CountdownDetails[];
 }
 
+const storageCountdowns = localStorage.getItem('countdowns');
+
 const initialState: CountdownsState = {
   now: new Date().getTime(),
-  countdowns: []
+  countdowns: storageCountdowns !== null ? JSON.parse(storageCountdowns) : []
 };
 
 const countdownsSlice = createSlice({
@@ -28,6 +30,13 @@ const countdownsSlice = createSlice({
     deleteCountdown(state, action: PayloadAction<{index: number}>) {
       const { index } = action.payload;
        state.countdowns.splice(index, 1);
+    },
+    reorderCountdown(state, action: PayloadAction<{start: number, end: number}>) {
+      const { start, end } = action.payload;
+      const result = Array.from(state.countdowns);
+      const [removed] = result.splice(start, 1);
+      result.splice(end, 0, removed);
+      state.countdowns = result;
     },
     updateCountdownName(state, action: PayloadAction<{index: number, name: string}>) {
       const { index, name } = action.payload;
@@ -44,7 +53,7 @@ const countdownsSlice = createSlice({
   }
 });
 
-export const { addCountdown, deleteCountdown, updateCountdownName, updateCountdownDate, updateNow } = countdownsSlice.actions;
+export const { addCountdown, deleteCountdown, reorderCountdown, updateCountdownName, updateCountdownDate, updateNow } = countdownsSlice.actions;
 
 export const selectCountdowns = (state: RootState): CountdownDetails[] => state.countdowns.countdowns;
 export const selectNow = (state: RootState): number => state.countdowns.now;

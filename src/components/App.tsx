@@ -3,14 +3,30 @@ import './App.css';
 
 import Countdown from '../containers/Countdown';
 import { CountdownDetails } from '../store/countdowns';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 interface AppProps {
   countdowns: CountdownDetails[],
-  onCreateCountdown: () => void
+  onCreateCountdown: () => void,
+  onReorderCountdown: (start: number, end: number) => void,
 }
 
 const App = (props: AppProps) => {
-  const { countdowns, onCreateCountdown } = props;
+  const { countdowns, onCreateCountdown, onReorderCountdown } = props;
+
+  const getListStyle = (_isDraggingOver: boolean) => ({
+  });
+
+  const getItemStyle = (isDragging: boolean, draggableStyle: any) => {
+    return {
+      background: isDragging ? '#e1e9f7' : 'white',
+      ...draggableStyle,
+    };
+  }
+
+  const onDragEnd = (result: any) => {
+    onReorderCountdown(result.source.index, result.destination.index);
+  };
 
   return (
     <div>
@@ -18,13 +34,36 @@ const App = (props: AppProps) => {
         <button onClick={onCreateCountdown}>Add Countdown</button>
       </div>
       <div>
-        {countdowns.map((countdown, i) => 
-          <Countdown
-            key={i}
-            index={i}
-            countdown={countdown}
-          />
-        )}
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId='droppable'>
+            {(provided, snapshot) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+              >
+                {countdowns.map((countdown, i) => 
+                  <Draggable key={i} draggableId={i.toString()} index={i}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                      >
+                        <Countdown
+                          index={i}
+                          countdown={countdown}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                )}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
     </div>
   )

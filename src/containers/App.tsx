@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 
 import App from '../components/App';
-import { addCountdown, selectCountdowns, updateNow } from '../store/countdowns';
+import { addCountdown, reorderCountdown, selectCountdowns, updateNow } from '../store/countdowns';
 import { useAppDispatch } from '../store/store';
 
 const AppContainer = () => {
@@ -23,6 +23,11 @@ const AppContainer = () => {
     return () => clearInterval(interval);
   });
 
+  // Store data in local storage
+  useEffect(() => {
+    localStorage.setItem('countdowns', JSON.stringify(countdowns));
+  }, [countdowns]);
+
   const handleCreateCountdown = () => {
 
     // Calculate tomorrow's date
@@ -35,11 +40,17 @@ const AppContainer = () => {
         time: date.getTime(),
       })
     )
+
+  };
+
+  const handleReorderCountdown = (start: number, end: number) => {
+    dispatch(reorderCountdown({ start, end }))
   };
 
   return <App
     countdowns={countdowns}
     onCreateCountdown={handleCreateCountdown}
+    onReorderCountdown={handleReorderCountdown}
   />;
 };
 
