@@ -5,8 +5,11 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 
 import './index.css';
+import { logPageview } from './analytics';
 import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
+
+logPageview();
 
 ReactDOM.render(
   <Provider store={store}>

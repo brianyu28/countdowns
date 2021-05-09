@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import App from '../components/App';
 import { addCountdown, reorderCountdown, selectCountdowns, updateNow } from '../store/countdowns';
 import { useAppDispatch } from '../store/store';
+import { logEvent } from '../analytics';
 
 const AppContainer = () => {
 
@@ -34,6 +35,11 @@ const AppContainer = () => {
     const date = new Date();
     date.setHours(24, 0, 0, 0);
 
+    logEvent({
+      category: 'Countdown',
+      action: 'New Countdown'
+    });
+
     dispatch(
       addCountdown({
         name: 'New Countdown',
@@ -44,6 +50,13 @@ const AppContainer = () => {
   };
 
   const handleReorderCountdown = (start: number, end: number) => {
+
+    logEvent({
+      category: 'Countdown',
+      action: 'Reorder Countdown',
+      label: `${start} to ${end}`
+    });
+
     dispatch(reorderCountdown({ start, end }))
   };
 
