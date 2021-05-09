@@ -12,11 +12,30 @@ type CountdownsState = {
   countdowns: CountdownDetails[];
 }
 
+// Get initial countdowns from storage if they exist
 const storageCountdowns = localStorage.getItem('countdowns');
+const initialCountdowns = storageCountdowns !== null ? JSON.parse(storageCountdowns) : [];
+
+// Check URL parameters for an initial countdown to add
+const searchParams = new URLSearchParams(window.location.search);
+const paramName = searchParams.get('name');
+const paramTime = searchParams.get('time');
+if (paramName && paramTime) {
+  const paramTimeNum = parseInt(paramTime);
+  if (!isNaN(paramTimeNum)) {
+    const exists = initialCountdowns.some((countdown: CountdownDetails) => {
+      return countdown.name === paramName && countdown.time === paramTimeNum
+    });
+    console.log(exists);
+    if (!exists) {
+      initialCountdowns.push({ name: paramName, time: paramTimeNum });
+    }
+  }
+}
 
 const initialState: CountdownsState = {
   now: new Date().getTime(),
-  countdowns: storageCountdowns !== null ? JSON.parse(storageCountdowns) : []
+  countdowns: initialCountdowns,
 };
 
 const countdownsSlice = createSlice({
