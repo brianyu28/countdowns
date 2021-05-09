@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/countdowns/static/css/main.d0edfe67.chunk.css",
+    "main.js": "/countdowns/static/js/main.853b2349.chunk.js",
+    "main.js.map": "/countdowns/static/js/main.853b2349.chunk.js.map",
+    "runtime-main.js": "/countdowns/static/js/runtime-main.4e221816.js",
+    "runtime-main.js.map": "/countdowns/static/js/runtime-main.4e221816.js.map",
+    "static/css/2.d22f252f.chunk.css": "/countdowns/static/css/2.d22f252f.chunk.css",
+    "static/js/2.8a40358c.chunk.js": "/countdowns/static/js/2.8a40358c.chunk.js",
+    "static/js/2.8a40358c.chunk.js.map": "/countdowns/static/js/2.8a40358c.chunk.js.map",
+    "static/js/3.33f90458.chunk.js": "/countdowns/static/js/3.33f90458.chunk.js",
+    "static/js/3.33f90458.chunk.js.map": "/countdowns/static/js/3.33f90458.chunk.js.map",
+    "index.html": "/countdowns/index.html",
+    "static/css/2.d22f252f.chunk.css.map": "/countdowns/static/css/2.d22f252f.chunk.css.map",
+    "static/css/main.d0edfe67.chunk.css.map": "/countdowns/static/css/main.d0edfe67.chunk.css.map",
+    "static/js/2.8a40358c.chunk.js.LICENSE.txt": "/countdowns/static/js/2.8a40358c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4e221816.js",
+    "static/css/2.d22f252f.chunk.css",
+    "static/js/2.8a40358c.chunk.js",
+    "static/css/main.d0edfe67.chunk.css",
+    "static/js/main.853b2349.chunk.js"
+  ]
+}
