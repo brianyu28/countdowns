@@ -1,4 +1,31 @@
 .countdown {
-    border: 1px solid black;
-    padding: 5px;
+    position: relative;
+}
+
+.countdown h1 {
+    cursor: text;
+    margin: 0;
+    padding: 0;
+}
+
+.countdown h2 {
+    color: grey;
+    margin: 0;
+    padding: 0;
+}
+
+.countdown-delete {
+    border: none;
+    background: transparent;
+    color: grey;
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    cursor: pointer;
+}
+
+.date-button {
+    cursor: default;
+    padding: 5px 10px;
+    margin-top: 8px;
 }

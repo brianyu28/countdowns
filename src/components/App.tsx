@@ -19,7 +19,7 @@ const App = (props: AppProps) => {
 
   const getItemStyle = (isDragging: boolean, draggableStyle: any) => {
     return {
-      background: isDragging ? '#e1e9f7' : 'white',
+      background: isDragging ? '#c0c7d1' : '#e1e9f7',
       ...draggableStyle,
     };
   }
@@ -46,6 +46,7 @@ const App = (props: AppProps) => {
                   <Draggable key={i} draggableId={i.toString()} index={i}>
                     {(provided, snapshot) => (
                       <div
+                        className='countdown-container'
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}

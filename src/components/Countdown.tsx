@@ -1,7 +1,9 @@
 import DatePicker from 'react-datepicker';
+import ContentEditable from 'react-contenteditable';
 
 import './Countdown.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import { forwardRef } from 'react';
 
 interface CountdownProps {
   name: string,
@@ -26,7 +28,7 @@ const Countdown = (props: CountdownProps) => {
 
   let { handleDelete, handleDateChange, handleNameChange, name, date, remaining } = props;
 
-  const changeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeName = (event: any) => {
     handleNameChange(event.target.value);
   }
 
@@ -60,18 +62,30 @@ const Countdown = (props: CountdownProps) => {
     }
 
     if (totalTime === '') {
-      return 'Now';
+      return 'now';
     } else if (inFuture) {
-      return `In ${totalTime}`;
+      return `in ${totalTime}`;
     } else {
       return `${totalTime} ago`;
     }
   }
 
+  const DateInput = forwardRef(
+    (props, ref) => {
+      const { onClick, value } = props as any;
+      return (
+        <button className='date-button' onClick={onClick} ref={ref as any}>
+          {value}
+        </button>
+      );
+    }
+  );
+
   return (
     <div className='countdown'>
       <div>
-        <input onChange={changeName} value={name} />
+        <ContentEditable html={name} onChange={changeName} tagName='h1' />
+        <h2>{timeRemainingString(remaining)}</h2>
       </div>
       <div>
         <DatePicker
@@ -80,14 +94,10 @@ const Countdown = (props: CountdownProps) => {
           timeInputLabel="Time:"
           dateFormat="MM/dd/yyyy h:mm aa"
           showTimeInput={true}
+          customInput={<DateInput />}
         />
       </div>
-      <div>
-        {timeRemainingString(remaining)}
-      </div>
-      <div>
-        <button onClick={handleDelete}>x</button>
-      </div>
+      <button className='countdown-delete' onClick={handleDelete}>X</button>
     </div>
   );
 };
