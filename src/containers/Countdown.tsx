@@ -20,10 +20,10 @@ const CountdownContainer = (props: CountdownContainerProps) => {
 
   const handleNameChange = (name: string) => {
 
-    logEvent({
-      category: 'Countdown',
-      action: 'Change Name'
-    });
+    // logEvent({
+    //   category: 'Countdown',
+    //   action: 'Change Name'
+    // });
 
     dispatch(updateCountdownName({ index, name }));
   }
