@@ -42,7 +42,7 @@ const AppContainer = () => {
 
     dispatch(
       addCountdown({
-        name: 'New Countdown',
+        name: 'New Countdown (click to edit)',
         time: date.getTime(),
       })
     )
